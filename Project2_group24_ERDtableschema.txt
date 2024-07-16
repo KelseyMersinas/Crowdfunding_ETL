@@ -1,6 +1,6 @@
 Campaign
 -
-cf_id INTEGER(5) PK
+cf_id INTEGER(5)
 contact_id INTEGER(5) FK >- Contacts.contact_id
 company_name VARCHAR(50)
 description VARCHAR(150)
@@ -15,25 +15,47 @@ end_date DATE(10)
 category_id VARCHAR(10) FK >- Category.category_id
 subcategory_id VARCHAR(10) FK >- Subcategory.subcategory_id
 last_updated TIMESTAMP
+CONSTRAINT "pk_Campaign" PRIMARY KEY (
+	"cf_id"
+	)
 
 
 Category
 -
-category_id VARCHAR(5) PK
+category_id VARCHAR(5) 
 category VARCHAR(20)
 last_updated TIMESTAMP
-
+CONSTRAINT "pk_Category" PRIMARY KEY (
+	"category_id"
+	)
 
 Contacts
 -
-contact_id INTEGER(5) PK
+contact_id INTEGER(5) 
 first_name VARCHAR(20)
 last_name VARCHAR(20)
 email VARCHAR(50)
 last_updated TIMESTAMP
+CONSTRAINT "pk_Contacts" PRIMARY KEY (
+	"contact_id"
+	)
 
 Subcategory
 -
-subcategory_id VARCHAR(10) PK
+subcategory_id VARCHAR(10)
 subcategory VARCHAR(30)
 last_updated TIMESTAMP
+CONSTRAINT "pk_Subcategory" PRIMARY KEY (
+	"subcategory_id"
+	)
+
+
+
+ALTER TABLE "Campaign" ADD CONSTRAINT fk_Campaign_contact_id" FOREIGN KEY("contact_id")
+REFERENCES "Contacts" ("contact_id");
+
+ALTER TABLE "Campaign" ADD CONSTRAINT fk_Campaign_category_id" FOREIGN KEY("category_id")
+REFERENCES "Category" ("category_id");
+
+ALTER TABLE "Campaign" ADD CONSTRAINT fk_Campaign_subcategory_id" FOREIGN KEY("subcategory_id")
+REFERENCES "Subcategory" ("subcategory_id");
